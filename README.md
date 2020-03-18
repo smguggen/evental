@@ -1,6 +1,6 @@
 # Srcer Events
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/srcer/events?style=plastic)
+![GitHub package.json version](https://img.shields.io/npm/v/@srcer/events?style=plastic)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/srcer/events/Build?style=plastic)
 ![NPM](https://img.shields.io/npm/l/@srcer/events?style=plastic)
 
