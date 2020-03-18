@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/srcer/events)
 ![Size](https://img.shields.io/bundlephobia/min/@srcer/events)
 
-Simple, environment-agnostic event handling. Use Srcer Events to create and handle custom events that don't depend on the existence of the DOM or on Node's `EventEmitter` class and can be used in any environment.
+Simple, environment-agnostic event handling. Use Srcer Events to create and handle custom events that don't depend on the existence of the DOM or Node and can be used in just about any environment.
 
 Install
 -------
