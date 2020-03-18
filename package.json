@@ -1,11 +1,17 @@
 {
   "name": "@srcer/events",
-  "version": "1.0.1",
-  "description": "Simple, library-structure-agnostic event handling",
+  "version": "1.0.2",
+  "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./bin/test.js",
+    "build": "node ./bin/build.js"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "convene": "0.0.7"
+  }
 }

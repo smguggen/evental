@@ -1,35 +1,91 @@
 class Events {
-    constructor(valid) {
-        this.valid = Array.isArray('valid') ? valid : [];
+    constructor() {
         this.calcs = {}
+        this.calcKeys = {};
         this.counts = {};
-        this.valid.forEach(ev => {
-            this[ev] = [];
-            this.calcs[ev] = null;
-            this.counts[ev] = 0;
-        }, this);
+        this._events = {}
+        this._index = 0;
     }
-
-    validate(ev) {
-        if (Array.isArray(ev)) {
-            ev.forEach(e => {
-                this._validate(e);
-            }, this);
+    
+    get index() {
+        this._index++;
+        return 'ev-' + this._index;
+    }
+    
+    get state() {
+        let $this = this;
+        return Object.keys(this._events).reduce((acc, ev) => {
+            let res = $this._events[ev];
+            let keys = res ? Object.keys(res) : [];
+            acc[ev] = {};
+            acc[ev].handlers = keys;
+            acc[ev].calc = $this.calcKeys[event];
+            return acc;
+        }, {});
+    }
+    
+    get events() {
+        return Object.keys(this._events);
+    }
+    
+    reset(event) {
+        if (event) {
+            this._events[ev] = {}
         } else {
-            this._validate(ev);
+            this._events = {};
         }
+        return this;
+    }
+    
+    getEvent(ev, key) {
+        let event = this._events[ev];
+        if (key && event) {
+            return event[key];
+        } else {
+            if (!event) {
+                return [];
+            }
+            return Object.values(event);
+        }
+    }
+    
+    getCalc(ev) {
+        return this.calcs[ev];
     }
 
     on(event, callback, calc) {
         if (typeof callback !== 'function') {
-            return;
+            return false;
         }
-        if (this.valid.includes(event) && typeof callback === 'function') {
-            this[event].push(callback);
-            if (calc || !this.calcs[event]) {
+        let index = this.index;
+        if (!this.events.includes(event)) {
+            this._events[event] = {};
+            this.counts[event] = 0;
+        } 
+        if (typeof callback === 'function') {
+            if (calc) {
                 this.calcs[event] = callback;
+                this.calcKeys[event] = index;
+            } else {
+                this._events[event][index] = callback;
             }
         }
+        return index;
+    }
+    
+    off(event, key) {
+        let ev = this._events[event];
+        if (ev && ev.hasOwnProperty(key)) {
+            delete ev[key];
+        }
+        if (this.calcKeys[event] && this.calcKeys[event] == key) {
+            this.calcKeys[event] = null;
+            this.calcs[event] = () => { return null }
+        }
+    }
+
+    onCalc(event, callback) {
+        return this.on(event, callback, true);
     }
     
     calc(event, ...args) {
@@ -42,19 +98,21 @@ class Events {
     }
 
     fire(event, ...args) {
+        let events = this.getEvent(event);
+        if (!this.counts[event]) {
+            this.counts[event] = 0;
+        }
         this.counts[event]++;
-        if (this.valid.includes(event) && this[event].length) {
-            this[event].forEach(ev => {
+        if (events && events.length) {
+            events.forEach(ev => {
                 ev.call(this, ...args)
             }, this);
         }
         return this;
     }
     
-    _validate(ev) {
-        if (!this.valid.includes(ev)) {
-            this.valid.push(ev);
-        }
+    static get instance() {
+        return new Events();
     }
 }
 
