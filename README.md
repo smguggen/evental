@@ -32,13 +32,13 @@ In html:
 
 ###### Properties:
 
-1. **instance** *(static)*
-   > Returns a new instance of the Events class with no events attached
+1. **instance** *(static)*  
+   Returns a new instance of the Events class with no events attached
    
-2. **state**
-   > Returns the current state of events in the form of an object keyed by the event names referencing an object with two properties:
-   > * **handlers**: an array of key names representing each callback function to be called when the event fires, or an empty array if none
-   > * **calc**: the key representing the calculatable function (see below) attached to the event or null if none
+2. **state**  
+   Returns the current state of events in the form of an object keyed by the event names referencing an object with two properties:
+   * **handlers**: an array of key names representing each callback function to be called when the event fires, or an empty array if none
+   * **calc**: the key representing the calculatable function (see below) attached to the event or null if none
     
 3. **events**
    >Returns an array with the names of all of the currently registered events
