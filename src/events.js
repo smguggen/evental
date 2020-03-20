@@ -1,5 +1,6 @@
 class Events {
-    constructor() {
+    constructor(caller) {
+        this.caller = caller || this;
         this.calcs = {}
         this.calcKeys = {};
         this.counts = {};
@@ -92,7 +93,7 @@ class Events {
         this.counts[event]++;
         let res = null;
         if (typeof this.calcs[event] === 'function') {
-            res = this.calcs[event].call(this, ...args);
+            res = this.calcs[event].call(this.caller, ...args);
         }
         return res;
     }
@@ -105,7 +106,7 @@ class Events {
         this.counts[event]++;
         if (events && events.length) {
             events.forEach(ev => {
-                ev.call(this, ...args)
+                ev.call(this.caller, ...args)
             }, this);
         }
         return this;

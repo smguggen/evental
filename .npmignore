@@ -7,3 +7,4 @@ bower_components
 example/
 _*.*
 .git
+.github

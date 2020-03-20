@@ -18,22 +18,25 @@ Include
 ```javascript
 // get Events class
 const Events = require('@srcer/events');
-
-// get new Events instance
-const events = new Events();
-
-// or get the instance in one step
-const events = require('@srcer/events').instance;
 ```
 In html:
 ```html
 <script type="text/javascript" src="/node_modules/@srcer/events/dist/events.min.js"></script>
 ```
 
-###### Properties:
+###### Instantiate:
+You can get a new `Srcer Events` instance in one of two ways:
+```javascript
+const events = new Events(caller);
+```
+*Or:*
+```javascript
+const events = require('@srcer/events').instance;
+```
 
+###### Properties:
 1. **instance** *(static)*  
-   Returns a new instance of the Events class with no events attached
+   Returns a new instance of the Events class with no events attached and `this.caller` set to the Srcer Events object
    
 2. **state**  
    Returns the current state of events in the form of an object keyed by the event names referencing an object with two properties:
@@ -51,6 +54,8 @@ In html:
    If `calculatable` is truthy, it attaches the callback as the event's calculatable callback. Each event can only have one calculatable callback at a time to be called and return a value every time the `calc` method is called for that event.
    
    Both versions return the unique key that is automatically generated and attached to the callback for use in referring to the callback in the `off` method to detach the callback from the event
+   
+   In the callback `this` defaults to the Srcer Events instance, but you can change that by passing a different caller into the Srcer Events constructor, or at any time by setting the value of `events.caller`
 
 2. **onCalc** *(eventName, callback)*    
    Equivalent to calling `events.on(eventName, callback, true)` - names the callback as the calculatable function for the event, replacing the current one if it exists
