@@ -22,20 +22,7 @@ jobs:
     - run: npm test
       env:
         CI: true
-  
-  update:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses:  actions/setup-node@v1
-      with:
-        node-version: 12.x
-        registry-url: https://registry.npmjs.org/
-        scope: '@srcer'
-    - if: success()
-      run: npm --no-git-tag-version version minor 
-    - if: success()
-      run: npm publish --access=public
+    - if: success() && ${{ matrix.node-version }} == '12.x'
+      run: npm --no-git-tag-version version minor && npm publish --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
