@@ -21,7 +21,7 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: npm test
-    - run: echo $NPM_VERSION
+    - run: echo '$NPM_VERSION'
     - if: success() && matrix.node-version == '12.x'
       run: npm --no-git-tag-version version minor && npm publish --access=public
       env:
