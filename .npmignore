@@ -8,3 +8,4 @@ example/
 _*.*
 .git
 .github
+.env

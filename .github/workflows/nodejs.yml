@@ -18,10 +18,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: https://registry.npmjs.org/
+        scope: '@srcer'
     - run: npm install
     - run: npm run build
     - run: npm test
       env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         CI: true
     - if: success()
       run: npm --no-git-tag-version version minor 
