@@ -23,8 +23,8 @@ jobs:
       env:
         CI: true
     - name: Update version 
-      env:
-        REPO_VERSION: ${{ npm version }}
-      run: echo "$REPO_VERSION"
     - if: success()
-      run: npm version patch 
+      run: npm version minor 
+    - name: Publish to npm
+    - if: success()
+      run: npm publish --access=public
