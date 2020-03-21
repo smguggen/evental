@@ -22,9 +22,7 @@ jobs:
     - run: npm test
       env:
         CI: true
-    - name: Update version 
     - if: success()
       run: npm version minor 
-    - name: Publish to npm
     - if: success()
       run: npm publish --access=public
