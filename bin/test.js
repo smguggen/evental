@@ -37,6 +37,6 @@ let obj = {
 }
 events.setCaller(obj);
 events.on('test', function() {
-    assert.equal(this.count, 18);
+    assert.equal(this.count, 19);
 });
 events.fire('test');
