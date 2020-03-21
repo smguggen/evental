@@ -23,9 +23,10 @@ jobs:
     - run: npm run build
     - run: npm test
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         CI: true
     - if: success()
       run: npm --no-git-tag-version version minor 
     - if: success()
       run: npm publish --access=public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
