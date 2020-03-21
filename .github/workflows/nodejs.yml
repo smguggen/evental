@@ -17,12 +17,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+        registry-url: https://registry.npmjs.org/
     - run: npm install
     - run: npm run build
     - run: npm test
       env:
         CI: true
-    - if: success() && ${{ matrix.node-version }} == '12.x'
-      run: npm --no-git-tag-version version minor && npm publish --access=public
+    - if: success() && matrix.node-version == '12.x'
+    - run: npm --no-git-tag-version version minor && npm publish --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
