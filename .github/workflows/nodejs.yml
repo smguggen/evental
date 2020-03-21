@@ -21,7 +21,9 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: npm test
+    - run: echo $NPM_VERSION
     - if: success() && matrix.node-version == '12.x'
       run: npm --no-git-tag-version version minor && npm publish --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_VERSION: $(npm view @srcer/events version)
