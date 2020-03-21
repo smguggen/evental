@@ -24,7 +24,7 @@ jobs:
         CI: true
     - name: Update version 
       env:
-        REPO_VERSION: ${{ $(npm version) }}
+        REPO_VERSION: ${{ npm version }}
       run: echo "$REPO_VERSION"
     - if: success()
       run: npm version patch 
