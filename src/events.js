@@ -1,11 +1,15 @@
 class Events {
     constructor(caller) {
-        this.caller = caller || this;
+        this.setCaller(caller);
         this.calcs = {}
         this.calcKeys = {};
         this.counts = {};
         this._events = {}
         this._index = 0;
+    }
+    
+    get length() {
+        return this.events.length;
     }
     
     get index() {
@@ -109,6 +113,17 @@ class Events {
                 ev.call(this.caller, ...args)
             }, this);
         }
+        return this;
+    }
+    
+    setCaller(caller) {
+        if (!caller || 
+            (typeof caller !== 'function' &&
+            typeof caller != 'object')
+        ) {
+           caller = this; 
+        }
+        this.caller = caller;
         return this;
     }
     

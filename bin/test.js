@@ -30,3 +30,13 @@ events.on('test', number => {
 }, true);
 calced = events.calc('test', tester);
 assert.equal(calced, 7);
+events.reset();
+assert.ok(events.length == 0, 'Events object failed to reset');
+let obj = {
+    count: 19
+}
+events.setCaller(obj);
+events.on('test', function() {
+    assert.equal(this.count, 19);
+});
+events.fire('test');
