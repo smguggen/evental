@@ -17,13 +17,22 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-        registry-url: https://registry.npmjs.org/
-        scope: '@srcer'
     - run: npm install
     - run: npm run build
     - run: npm test
       env:
         CI: true
+  
+  update:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses:  actions/setup-node@v1
+      with:
+        node-version: 12.x
+        registry-url: https://registry.npmjs.org/
+        scope: '@srcer'
     - if: success()
       run: npm --no-git-tag-version version minor 
     - if: success()
