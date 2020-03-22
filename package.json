@@ -10,13 +10,20 @@
   "author": "Steven Guggenheimer <sguggen@srcer.com> (https://github.com/smguggen)",
   "license": "MIT",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/srcer/events.git"
+    "type": "git",
+    "url": "https://github.com/srcer/events.git"
   },
-  "keywords": ["event", "events", "event handlers", "custom events", "javascript", "environments"],
+  "keywords": [
+    "event",
+    "events",
+    "event handlers",
+    "custom events",
+    "javascript",
+    "environments"
+  ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
-    "convene": "0.0.94"
+    "convene": "^0.0.99"
   }
 }
