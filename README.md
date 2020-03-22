@@ -21,7 +21,7 @@ const Events = require('@srcer/events');
 ```
 In html:
 ```html
-<script type="text/javascript" src="/node_modules/@srcer/events/dist/events.min.js"></script>
+<script type="text/javascript" src="/node_modules/@srcer/events/dist/srcer-events.min.js"></script>
 ```
 
 ###### Instantiate:

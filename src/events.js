@@ -2,6 +2,7 @@ const SrcerEvent = require('./event');
 
 class SrcerEvents {
     constructor(caller) {
+        caller = caller || this;
         this.setCaller(caller);
         this._events = {}
         this._index = 0;
@@ -10,14 +11,10 @@ class SrcerEvents {
             let method = type == 'calc' ? 'onCalc' : type;
             this[method] = this._updateTypes(type);
         }, this);
-        let methods = ['fire', 'calc', 'off'];
-        methods.forEach(m => {
-           this[m] = this._update(m); 
-        }, this);
     }
     
     get length() {
-        return this.events.length;
+        return this.events.filter(ev => ev.active).length;
     }
     
     get index() {
@@ -32,10 +29,28 @@ class SrcerEvents {
         this.event = event;
         return this.update(event, 'on', callback, option);
      }
+     
+     off(event, key) {
+        this.update(event, 'off', key);
+        return this;
+     }
+     
+     fire(event, ...args) {
+         this.update(event, 'fire', this.caller, ...args);
+         return this;
+     }
+     
+     calc(event, ...args) {
+         return this.update(event, 'calc', this.caller, ...args);
+     }
     
     set event(e) {
+        if (this.exists(e) && !this.isActive(e)) {
+            this._events[e].active = true;
+            return;
+        }
         if (!this.exists(e)) {
-           this._events[e] = new SrcerEvent(e, this.caller);
+            this._events[e] = new SrcerEvent(e, this.caller);
         }
     }
     
@@ -53,7 +68,7 @@ class SrcerEvents {
     }
     
     get events() {
-        return Object.keys(this._events) || {};
+        return Object.keys(this._events) || [];
     }
     
     get state() {
@@ -68,7 +83,17 @@ class SrcerEvents {
     }
     
     get(event) {
+        if (event && typeof event !== 'string' && event instanceof SrcerEvent) {
+            return event;
+        }
         return this._events[event];
+    }
+    
+    count(event) {
+        if (this.exists(event)) {
+            return this.get(event).count;
+        }
+        return 0;
     }
     
     setCaller(caller) {
@@ -87,11 +112,18 @@ class SrcerEvents {
         return e && e instanceof SrcerEvent;
     }
     
+    isActive(ev) {
+        let e = this.get(ev);
+        return e && e instanceof SrcerEvent && e.active;
+    }
+    
     reset(event) {
         if (event) {
             this.update(event, 'reset');
         } else {
-            this._events = {};
+            this.events.forEach(ev => {
+               this._events[ev].active = false; 
+            });
         }
         return this;
     }
@@ -112,12 +144,6 @@ class SrcerEvents {
     _updateTypes(type) {
         return function(event, callback) {
             return this.on(event, callback, type);
-        }
-    }
-    
-    _update(method) {
-        return function(event, ...args) {
-            return this.update(event, method, ...args);
         }
     }
     

@@ -9,4 +9,4 @@ convene.queue({ src: ['callback', 'event', 'events'] }, 'require')
         presets: ["@babel/preset-env"]
     }).code, true)
     .on('merged', convene.minify)
-    .merge(process.cwd() + '/dist/events.js', 'dist');
+    .merge(process.cwd() + '/dist/srcer-events.js', 'dist');

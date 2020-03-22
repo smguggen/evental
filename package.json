@@ -1,6 +1,6 @@
 {
   "name": "@srcer/events",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {

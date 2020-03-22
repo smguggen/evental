@@ -1,20 +1,20 @@
 const SrcerCallback = require('./callback');
 
 class SrcerEvent {
-    constructor(name, caller) {
+    constructor(name) {
         if (!name) {
             throw new Error('Event name is required');
         }
         if (typeof name !== 'string') {
             throw new Error('Event name must be a string');
         }
-        this.caller = caller || this;
         this.name = name;
         this._queue = {}
         this._calc = new SrcerCallback(name + '-0', 'calc');
         this.hasCalc = false;
         this._index = 0;
         this.count = 0;
+        this.active = true;
     }
 
     get length() {
@@ -30,21 +30,21 @@ class SrcerEvent {
         return this.getCallbacks();
     }
 
-    fire(...args) {
+    fire(caller, ...args) {
         let q = this.queue;
         this.count++;
         q.forEach(cb => {
             if (cb.active) {
-                cb.function.call(this.caller, ...args);
+                cb.function.call(caller, ...args);
             }
         }, this);
         return this;
     }
 
-    calc(...args) {
+    calc(caller, ...args) {
         this.count++;
         if (this._calc.active) {
-            return this._calc.function.call(this.caller, ...args);
+            return this._calc.function.call(caller, ...args);
         } else {
             return args && args.length ? args[0] : null;
         }
@@ -105,9 +105,10 @@ class SrcerEvent {
     off(key) {
         if (this._queue.hasOwnProperty(key)) {
             this._queue[key].deactivate();
-        }
-        if (this._calc.index == key) {
+        } else if (this._calc.index == key) {
             this._calc.deactivate();
+        } else {
+            this.active = false;
         }
         return this;
     }
@@ -143,6 +144,19 @@ class SrcerEvent {
 
     getCalc() {
         return this._calc.function;
+    }
+    
+    set active(a) {
+        if (a) {
+            this._active = true;
+        } else {
+            this._active = false;
+            this.reset();
+        }
+    }
+    
+    get active() {
+        return this._active === false ? false : true;
     }
 
     set _queue(q) {
