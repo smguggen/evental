@@ -1,4 +1,4 @@
-class Events {
+class SrcerEvents {
     constructor(caller) {
         this.setCaller(caller);
         this.calcs = {}
@@ -128,8 +128,8 @@ class Events {
     }
     
     static get instance() {
-        return new Events();
+        return new SrcerEvents();
     }
 }
 
-module.exports = Events;
+module.exports = SrcerEvents;

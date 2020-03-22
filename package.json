@@ -1,6 +1,6 @@
 {
   "name": "@srcer/events",
-  "version": "1.0.39",
+  "version": "1.0.5",
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,10 @@
   },
   "author": "",
   "license": "MIT",
+  "keywords": ["event", "events", "event handlers", "custom events", "javascript", "environments"],
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "convene": "0.0.7"
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "convene": "0.0.94"
   }
 }
