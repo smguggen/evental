@@ -44,7 +44,7 @@ class SrcerEvent {
     calc(...args) {
         this.count++;
         if (this._calc.active) {
-            return this._calc.function.call(...args);
+            return this._calc.function.call(this.caller, ...args);
         } else {
             return args && args.length ? args[0] : null;
         }

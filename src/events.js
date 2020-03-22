@@ -26,6 +26,9 @@ class SrcerEvents {
     }
     
     on(event, callback, option) {
+        if (option && typeof option === 'boolean') {
+            option = 'calc';
+        }
         this.event = event;
         return this.update(event, 'on', callback, option);
      }
