@@ -1,14 +1,18 @@
 {
   "name": "@srcer/events",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
     "test": "node ./bin/test.js",
     "build": "node ./bin/build.js"
   },
-  "author": "",
+  "author": "Steven Guggenheimer <sguggen@srcer.com> (https://github.com/smguggen)",
   "license": "MIT",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/srcer/events.git"
+  },
   "keywords": ["event", "events", "event handlers", "custom events", "javascript", "environments"],
   "devDependencies": {
     "@babel/core": "^7.9.0",

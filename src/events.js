@@ -36,12 +36,20 @@ class SrcerEvents {
      }
      
      fire(event, ...args) {
-         this.update(event, 'fire', this.caller, ...args);
-         return this;
+        if (!this.exists(event)) {
+            this.event = event;
+            this.get(event).active = false;
+        }
+        this.update(event, 'fire', this.caller, ...args); 
+        return this;
      }
      
      calc(event, ...args) {
-         return this.update(event, 'calc', this.caller, ...args);
+        if (!this.exists(event)) {
+            this.event = event;
+            this.get(event).active = false;
+        }
+        return this.update(event, 'calc', this.caller, ...args);
      }
     
     set event(e) {

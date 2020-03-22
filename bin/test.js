@@ -45,3 +45,6 @@ events.on('test', function() {
 });
 events.fire('test');
 assert.equal(events.count('test'), 5);
+events.fire('newEvent');
+assert.ok(events._events.newEvent.active === false);
+assert.ok(events._events.test.active === true);
