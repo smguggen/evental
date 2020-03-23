@@ -1,4 +1,3 @@
-const types = ['first', 'before', 'after', 'last', 'calc'];
 class SrcerCallback {
     constructor(index, callback, type) {
         if (typeof callback !== 'function') {
@@ -8,7 +7,7 @@ class SrcerCallback {
         this.active = true;
         this.type = type;
         this.function = callback;
-        let types = ['before', 'after', 'first', 'last'];
+        let types = ['before', 'after', 'first', 'last', 'calc'];
         types.forEach(t => {
             Object.defineProperty(this, t, 
                 { get: function() { return this.type == t } }    
