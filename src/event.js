@@ -10,7 +10,7 @@ class SrcerEvent {
         }
         this.name = name;
         this._queue = {}
-        this._calc = new SrcerCallback(name + '-0', 'calc');
+        this._calc = new SrcerCallback(name + '-0', null, 'calc');
         this.hasCalc = false;
         this._index = 0;
         this.count = 0;

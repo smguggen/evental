@@ -1,8 +1,7 @@
 const types = ['first', 'before', 'after', 'last', 'calc'];
 class SrcerCallback {
     constructor(index, callback, type) {
-        if (typeof callback === 'string') {
-            type = callback;
+        if (typeof callback !== 'function') {
             callback = this.default;
         }
         this.index = index;

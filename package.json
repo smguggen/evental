@@ -1,6 +1,6 @@
 {
   "name": "@srcer/events",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
-    "convene": "^0.0.99"
+    "convene": "0.1.0"
   }
 }
