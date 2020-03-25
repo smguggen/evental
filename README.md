@@ -1,9 +1,9 @@
 # Srcer Events
 
-![Workflow Status](https://img.shields.io/github/workflow/status/srcer/events/Build)
-![Version](https://img.shields.io/npm/l/@srcer/events?style=plastic)
-![License](https://img.shields.io/github/license/srcer/events)
-![Size](https://img.shields.io/bundlephobia/min/@srcer/events)
+![Workflow Status](https://img.shields.io/github/workflow/status/srcer/events/Build?style=plastic)
+![Version](https://img.shields.io/npm/v/@srcer/events?style=plastic)
+![License](https://img.shields.io/github/license/srcer/events?style=plastic)
+![Size](https://img.shields.io/bundlephobia/min/@srcer/events?style=plastic)
 
 Simple, environment-agnostic event handling. Use Srcer Events to create and handle custom events that don't depend on the existence of the DOM or Node and can be used in just about any environment.
 
