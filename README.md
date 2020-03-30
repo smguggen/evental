@@ -10,33 +10,33 @@ Simple, environment-agnostic event handling. Use Srcer Events to create and hand
 Install
 -------
 ```console
-npm install @srcer/events
+npm install evental
 ```
 
 Include
 -------
 ```javascript
-// get Events class
-const Events = require('@srcer/events');
+// get Evental class
+const Evental = require('evental');
 ```
 In html:
 ```html
-<script type="text/javascript" src="/node_modules/@srcer/events/dist/srcer-events.min.js"></script>
+<script type="text/javascript" src="/node_modules/evental/dist/evental.min.js"></script>
 ```
 
 ###### Instantiate:
-You can get a new `Srcer Events` instance in one of two ways:
+You can get a new `Evental` instance in one of two ways:
 ```javascript
-const events = new Events(caller);
+const evental = new Evental(caller);
 ```
 *Or:*
 ```javascript
-const events = require('@srcer/events').instance;
+const evental = require('evental').instance;
 ```
 
 ###### Properties:
 1. **instance** *(static)*  
-   Returns a new instance of the Events class with no events attached and `this.caller` set to the Srcer Events object
+   Returns a new instance of the Evental class with no events attached and `this.caller` set to the Evental object
    
 2. **state**  
    Returns the current state of events in the form of an object keyed by the event names referencing an object with two properties:
@@ -55,19 +55,19 @@ const events = require('@srcer/events').instance;
    
    Both versions return the unique key that is automatically generated and attached to the callback for use in referring to the callback in the `off` method to detach the callback from the event
    
-   In the callback `this` defaults to the Srcer Events instance, but you can change that by passing a different caller into the Srcer Events constructor, or at any time by setting the value of `events.caller`
+   In the callback `this` defaults to the Evental instance, but you can change that by passing a different caller into the Evental constructor, or at any time by setting the value of `evental.caller`
 
 2. **onCalc** *(eventName, callback)*    
-   Equivalent to calling `events.on(eventName, callback, true)` - names the callback as the calculatable function for the event, replacing the current one if it exists
+   Equivalent to calling `evental.on(eventName, callback, true)` - names the callback as the calculatable function for the event, replacing the current one if it exists
    
 3. **off** *(eventName, key)*  
    Detaches the callback that the key represents from the event if it exists
    
 4. **fire** *(eventName, [...args])*  
-   Activates the event, calling all handlers attached to it in the order they were attached, with `this` referring to the `events` instance and passing all of the `args` to each callback. Returns the `events` instance.
+   Activates the event, calling all handlers attached to it in the order they were attached, with `this` referring to the `evental` instance and passing all of the `args` to each callback. Returns the `evental` instance.
    
 5. **calc** *(eventName, [...args])*  
-   Activates the calculatable event, calling the calculatable function attached to the event if it exists, with `this` referring to the `events` instance and passing all of the `args` to the callback. Returns the return value of the callback.
+   Activates the calculatable event, calling the calculatable function attached to the event if it exists, with `this` referring to the `evental` instance and passing all of the arguments to the callback. Returns the return value of the callback.
    
    *Both `fire` and `calc` can be called multiple times.*
    
