@@ -1,6 +1,6 @@
 {
-  "name": "@srcer/events",
-  "version": "2.1.4",
+  "name": "evental",
+  "version": "0.0.9",
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
@@ -11,15 +11,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/srcer/events.git"
+    "url": "https://github.com/srcer/evental.git"
   },
   "keywords": [
     "event",
     "events",
-    "event handlers",
+    "event handler",
     "custom events",
     "javascript",
-    "environments"
+    "on",
+    "event listener"
   ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
