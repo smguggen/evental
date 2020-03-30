@@ -1,11 +1,11 @@
-# Srcer Events
+# Evental
 
-![Workflow Status](https://img.shields.io/github/workflow/status/srcer/events/Build?style=plastic)
-![Version](https://img.shields.io/npm/v/@srcer/events?style=plastic)
-![License](https://img.shields.io/github/license/srcer/events?style=plastic)
-![Size](https://img.shields.io/bundlephobia/min/@srcer/events?style=plastic)
+![Workflow Status](https://img.shields.io/github/workflow/status/evental/Build?style=plastic)
+![Version](https://img.shields.io/npm/v/evental?style=plastic)
+![License](https://img.shields.io/github/license/evental?style=plastic)
+![Size](https://img.shields.io/bundlephobia/min/evental?style=plastic)
 
-Simple, environment-agnostic event handling. Use Srcer Events to create and handle custom events that don't depend on the existence of the DOM or Node and can be used in just about any environment.
+Simple, environment-agnostic event handling. Use Evental to create and handle custom events that don't depend on the existence of the DOM or Node and can be used in just about any environment.
 
 Install
 -------
