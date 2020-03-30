@@ -1,6 +1,6 @@
-const SrcerCallback = require('./callback');
+const EventalCallback = require('./callback');
 
-class SrcerEvent {
+class EventalEvent {
     constructor(name) {
         if (!name) {
             throw new Error('Event name is required');
@@ -10,7 +10,7 @@ class SrcerEvent {
         }
         this.name = name;
         this._queue = {}
-        this._calc = new SrcerCallback(name + '-0', null, 'calc');
+        this._calc = new EventalCallback(name + '-0', null, 'calc');
         this.hasCalc = false;
         this._index = 0;
         this.count = 0;
@@ -64,7 +64,7 @@ class SrcerEvent {
             }
         }
         if (typeof callback === 'string') {
-            if (this._queue[callback] && this._queue[callback] instanceof SrcerCallback) {
+            if (this._queue[callback] && this._queue[callback] instanceof EventalCallback) {
                 this._queue[callback].activate();
                 return callback;
             } else if (this._calc && this._calc.index == callback) {
@@ -72,7 +72,7 @@ class SrcerEvent {
                 return callback;
             }
         }
-        let cb = new SrcerCallback(index, callback, option);
+        let cb = new EventalCallback(index, callback, option);
         if (cb.calc) {
             this.hasCalc = true;
             this._calc = cb;
@@ -175,4 +175,4 @@ class SrcerEvent {
     }
 }
 
-module.exports = SrcerEvent;
+module.exports = EventalEvent;

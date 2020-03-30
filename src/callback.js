@@ -1,4 +1,4 @@
-class SrcerCallback {
+class EventalCallback {
     constructor(index, callback, type) {
         if (typeof callback !== 'function') {
             callback = this.default;
@@ -74,4 +74,4 @@ class SrcerCallback {
     }
 }
 
-module.exports = SrcerCallback;
+module.exports = EventalCallback;

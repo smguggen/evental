@@ -23,6 +23,7 @@ const Evental = require('evental');
 In html:
 ```html
 <script type="text/javascript" src="/node_modules/evental/dist/evental.min.js"></script>
+<script type="module" src="/node_modules/evental/dist/evental.es.js"></script>
 ```
 
 ###### Instantiate:

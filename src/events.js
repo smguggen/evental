@@ -1,6 +1,6 @@
-const SrcerEvent = require('./event');
+const EventalEvent = require('./event');
 
-class SrcerEvents {
+class Evental {
     constructor(caller) {
         caller = caller || this;
         this.setCaller(caller);
@@ -58,7 +58,7 @@ class SrcerEvents {
             return;
         }
         if (!this.exists(e)) {
-            this._events[e] = new SrcerEvent(e, this.caller);
+            this._events[e] = new EventalEvent(e, this.caller);
         }
     }
     
@@ -91,7 +91,7 @@ class SrcerEvents {
     }
     
     get(event) {
-        if (event && typeof event !== 'string' && event instanceof SrcerEvent) {
+        if (event && typeof event !== 'string' && event instanceof EventalEvent) {
             return event;
         }
         return this._events[event];
@@ -117,12 +117,12 @@ class SrcerEvents {
     
     exists(ev) {
         let e = this.get(ev);
-        return e && e instanceof SrcerEvent;
+        return e && e instanceof EventalEvent;
     }
     
     isActive(ev) {
         let e = this.get(ev);
-        return e && e instanceof SrcerEvent && e.active;
+        return e && e instanceof EventalEvent && e.active;
     }
     
     reset(event) {
@@ -139,7 +139,7 @@ class SrcerEvents {
     update(event, callback, ...args) {
         let ev = this.get(event);
         let res = false;
-        if (ev instanceof SrcerEvent) {
+        if (ev instanceof EventalEvent) {
             if (typeof callback === 'string' && typeof ev[callback] === 'function') {
                 res = ev[callback].call(ev, ...args);
             } else if (typeof callback === 'function') {
@@ -156,8 +156,8 @@ class SrcerEvents {
     }
     
     static get instance() {
-        return new SrcerEvents();
+        return new Evental();
     }
 }
 
-module.exports = SrcerEvents;
+module.exports = Evental;
