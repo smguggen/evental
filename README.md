@@ -1,8 +1,8 @@
 # Evental
 
-![Workflow Status](https://img.shields.io/github/workflow/status/evental/Build?style=plastic)
+![Workflow Status](https://img.shields.io/github/workflow/status/smguggen/evental/Build)
 ![Version](https://img.shields.io/npm/v/evental?style=plastic)
-![License](https://img.shields.io/github/license/evental?style=plastic)
+![License](https://img.shields.io/npm/l/evental?style=plastic)
 ![Size](https://img.shields.io/bundlephobia/min/evental?style=plastic)
 
 Simple, environment-agnostic event handling. Use Evental to create and handle custom events that don't depend on the existence of the DOM or Node and can be used in just about any environment.
