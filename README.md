@@ -4,6 +4,7 @@
 ![Version](https://img.shields.io/npm/v/evental?style=plastic)
 ![License](https://img.shields.io/npm/l/evental?style=plastic)
 ![Size](https://img.shields.io/bundlephobia/min/evental?style=plastic)
+![Downloads](https://img.shields.io/npm/dt/@srcer/events)
 
 Simple, environment-agnostic event handling. Use Evental to create and handle custom events that don't depend on the existence of the DOM or Node and can be used in just about any environment.
 
