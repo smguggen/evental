@@ -38,7 +38,7 @@ const evental = require('evental').instance;
 
 ###### Properties:
 1. **instance** *(static)*  
-   Returns a new instance of the Evental class with no events attached and `this.caller` set to the Evental object
+   Returns a new instance of the Evental class with no events attached and `evental.caller` set to the Evental object
    
 2. **state**  
    Returns the current state of events in the form of an object keyed by the event names referencing an object with two properties:
@@ -50,34 +50,46 @@ const evental = require('evental').instance;
    
 ###### Methods:
 
-1. **on** *(eventName, callback, [calculatable])*  
-   If no `calculatable` parameter is given or if the parameter is falsy, registers an event in the class if not already registered and attaches a callback to be called every time the event is fired.
-      
-   If `calculatable` is truthy, it attaches the callback as the event's calculatable callback. Each event can only have one calculatable callback at a time to be called and return a value every time the `calc` method is called for that event.
+1. **on** *(eventName, callback, [option])*  
+   Registers an event if it's not already registered and attaches a callback to be called every time the event is fired.    
+   Returns an automatically generated, unique key that that can be passed to the `off` method to detach the callback from the event.     
+   In the callback, `this` defaults to the Evental instance, but you can change that by passing a different caller into the Evental constructor, or at any time by setting the value of `evental.caller`
+   The optional `option` parameter can modify this method's behavior in several ways (see below).  
    
-   Both versions return the unique key that is automatically generated and attached to the callback for use in referring to the callback in the `off` method to detach the callback from the event
-   
-   In the callback `this` defaults to the Evental instance, but you can change that by passing a different caller into the Evental constructor, or at any time by setting the value of `evental.caller`
-
 2. **onCalc** *(eventName, callback)*    
-   Equivalent to calling `evental.on(eventName, callback, true)` - names the callback as the calculatable function for the event, replacing the current one if it exists
+   Alias of `evental.on(eventName, callback, 'calc')` or `evental.on(eventName, callback, true)` - attaches the callback as the event's calculatable callback and replacing the current one if it exists. Each event can only have one calculatable callback at a time to be called and return a value every time the `calc` method is called for that event. 
    
-3. **off** *(eventName, key)*  
+3. **first**(eventName, callback)*    
+   Alias of `evental.on(eventName, callback, 'first')` - attaches the associated callback as the first callback to be called when the event is fired. If this is called more than once on the same event, the most recently called will be first, and all preceding `first` event handlers will be converted to `before`.    
+   
+4. **before** *(eventName, callback)*    
+   Alias of `evental.on(eventName, callback, 'before')` - callbacks classified with this flag will be called before all callbacks except for the current `first` callback, assuming one exists, when an event is fired.  
+
+5. **after** *(eventName, callback)*    
+   Alias of `evental.on(eventName, callback, 'after')` - callbacks classified with this flag will be called after all callbacks except for the current `last` callback, assuming one exists, when an event is fired.  
+   
+6. **last** *(eventName, callback)*    
+   Alias of `evental.on(eventName, callback, 'last')` - attaches the associated callback as the last callback to be called when the event is fired. If this is called more than once on the same event, the most recently called will be last, and all preceding `last` event handlers will be converted to `after`.  
+   
+7. **off** *(eventName, key)*  
    Detaches the callback that the key represents from the event if it exists
    
-4. **fire** *(eventName, [...args])*  
+8. **fire** *(eventName, [...args])*  
    Activates the event, calling all handlers attached to it in the order they were attached, with `this` referring to the `evental` instance and passing all of the `args` to each callback. Returns the `evental` instance.
    
-5. **calc** *(eventName, [...args])*  
+9. **calc** *(eventName, [...args])*  
    Activates the calculatable event, calling the calculatable function attached to the event if it exists, with `this` referring to the `evental` instance and passing all of the arguments to the callback. Returns the return value of the callback.
    
    *Both `fire` and `calc` can be called multiple times.*
    
-6. **getEvent** *(eventName, [key])*  
+10. **getEvent** *(eventName, [key])*  
    If `key` is given, returns the specific callback function the key represents, otherwise returns all functions attached to the event
    
-7. **getCalc** *(eventName)*  
-   Returns calculatable function attached to event or null if none exists
+11. **getCalc** *(eventName)*  
+   Returns the calculatable function attached to the event or `null` if none exists
+   
+12. **setCaller** *(caller)*  
+   Sets the `this` value of all event callbacks to the object represented by `caller`.  
 
 
 

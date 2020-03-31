@@ -48,3 +48,32 @@ assert.equal(evental.count('test'), 5);
 evental.fire('newEvent');
 assert.ok(evental._events.newEvent.active === false);
 assert.ok(evental._events.test.active === true);
+
+evental.reset();
+let order = [];
+evental.after('order', () => {
+   order.push(4);
+});
+
+evental.on('order', () => {
+    order.push(3);
+});
+
+evental.last('order', () => {
+    order.push(5);
+});
+
+evental.first('order', () => {
+    order.push(1); 
+});
+
+evental.before('order', () => {
+    order.push(2); 
+});
+
+evental.fire('order');
+
+order.forEach((number, index) => {
+   assert.equal(number, index + 1); 
+});
+
