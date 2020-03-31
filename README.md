@@ -30,9 +30,7 @@ In html:
 You can get a new `Evental` instance in one of two ways:
 ```javascript
 const evental = new Evental(caller);
-```
-*Or:*
-```javascript
+// or:
 const evental = require('evental').instance;
 ```
 
@@ -80,7 +78,7 @@ const evental = require('evental').instance;
 9. **calc** *(eventName, [...args])*  
    Activates the calculatable event, calling the calculatable function attached to the event if it exists, with `this` referring to the `evental` instance and passing all of the arguments to the callback. Returns the return value of the callback.
    
-   *Both `fire` and `calc` can be called multiple times.*
+   *Both `fire` and `calc` can be called multiple times.*  
    
 10. **getEvent** *(eventName, [key])*  
    If `key` is given, returns the specific callback function the key represents, otherwise returns all functions attached to the event
