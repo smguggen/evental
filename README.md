@@ -88,6 +88,65 @@ const evental = require('evental').instance;
    
 12. **setCaller** *(caller)*  
    Sets the `this` value of all event callbacks to the object represented by `caller`.  
+   
+   
+###### Examples:  
+Bind an existing event:
+```javascript
+document.addEventListener('click', e => {
+   evental.fire('click', e); 
+});
 
+document.getElementById('myButton').addEventListener('click', e => {
+   evental.fire('myButtonClick', e); 
+});
+```
+Conditionally fire several events at once:
+```javascript
+function onComplete(request) {
+    if (request.status == 'success') {
+        evental.fire(['success', 'complete'], request.data);
+    } else {
+        evental.fire(['error', 'complete'], request.error);
+    }
+}
+```
+Control the order in which events are called:
+```javascript
+let order = [];
+evental.after('order', () => {
+   order.push(4);
+});
 
+evental.on('order', () => {
+    order.push(3);
+});
 
+evental.last('order', () => {
+    order.push(5);
+});
+
+evental.first('order', () => {
+    order.push(1); 
+});
+
+evental.before('order', () => {
+    order.push(2); 
+});
+
+evental.fire('order');
+
+// Result: order == [1,2,3,4,5];
+```
+Mutate data before passing to the next step:
+```javascript
+evental.onCalc('myChunk', (data, number) => {
+   console.log(`Data Chunk ${number}: ${JSON.stringify(data)}`); 
+});
+let chunkNumber = 0;
+stream.on('data', data => {
+    chunkNumber++;
+    data = evental.calc('myChunk', data, chunkNumber);
+    return data;
+}
+```
