@@ -36,12 +36,13 @@ class Evental {
      }
      
      fire(event, ...args) {
-        if (!this.exists(event)) {
-            this.event = event;
-            this.get(event).active = false;
-        }
-        this.update(event, 'fire', this.caller, ...args); 
-        return this;
+         if (Array.isArray(event)) {
+             event.forEach(e => {
+                 this._fire(e, ...args);
+             }, this)
+         } else {
+             this._fire(event, ...args);
+         }
      }
      
      calc(event, ...args) {
@@ -147,6 +148,15 @@ class Evental {
             }   
         }
         return res;
+    }
+    
+    _fire(event, ...args) {
+        if (!this.exists(event)) {
+            this.event = event;
+            this.get(event).active = false;
+        }
+        this.update(event, 'fire', this.caller, ...args); 
+        return this;
     }
     
     _updateTypes(type) {

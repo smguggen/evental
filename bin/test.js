@@ -77,3 +77,9 @@ order.forEach((number, index) => {
    assert.equal(number, index + 1); 
 });
 
+assert.equal(evental.count('one'), 0);
+
+evental.fire(['one', 'two']);
+
+assert.equal(evental.count('one'), 1);
+assert.equal(evental.count('two'), 1);
