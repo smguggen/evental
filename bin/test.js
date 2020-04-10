@@ -83,3 +83,27 @@ evental.fire(['one', 'two']);
 
 assert.equal(evental.count('one'), 1);
 assert.equal(evental.count('two'), 1);
+
+evental.setCaller(evental);
+
+evental.on('three', function(number) {
+    switch(this.count('three')) {
+        case 1: assert.equal(number, 1);
+        break;
+        case 2: assert.equal(number, 2);
+        break;
+        case 3: assert.equal(number, 1);
+        break;
+        case 4: assert.equal(number, 1);
+        break;
+    }
+});
+
+evental.fire('three', 1);
+evental.onCalc('three', number => {
+   return (number || 0) + 1; 
+});
+evental.fire('three', 1);
+evental.fire('three');
+evental.get('three').bypass();
+evental.fire('three', 1);

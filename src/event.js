@@ -1,7 +1,7 @@
 const EventalCallback = require('./callback');
 
 class EventalEvent {
-    constructor(name) {
+    constructor(name, bypassCalcOnFire) {
         if (!name) {
             throw new Error('Event name is required');
         }
@@ -10,6 +10,7 @@ class EventalEvent {
         }
         this.name = name;
         this._queue = {}
+        this._bypass = bypassCalcOnFire ? true : false;
         this._calc = new EventalCallback(name + '-0', null, 'calc');
         this.hasCalc = false;
         this._index = 0;
@@ -33,6 +34,10 @@ class EventalEvent {
     fire(caller, ...args) {
         let q = this.queue;
         this.count++;
+        if (this.hasCalc && !this._bypass) {
+            let arg = this.__calc(caller, ...args);
+            args = [arg];
+        }
         q.forEach(cb => {
             if (cb.active) {
                 cb.function.call(caller, ...args);
@@ -43,6 +48,10 @@ class EventalEvent {
 
     calc(caller, ...args) {
         this.count++;
+        return this.__calc(caller, ...args);
+    }
+    
+    __calc(caller, ...args) {
         if (this._calc.active) {
             return this._calc.function.call(caller, ...args);
         } else {
@@ -144,6 +153,14 @@ class EventalEvent {
 
     getCalc() {
         return this._calc.function;
+    }
+    
+    bypass() {
+        this._bypass = true;
+    }
+    
+    removeBypass() {
+        this._bypass = false;
     }
     
     set active(a) {

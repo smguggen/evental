@@ -59,7 +59,7 @@ class Evental {
             return;
         }
         if (!this.exists(e)) {
-            this._events[e] = new EventalEvent(e, this.caller);
+            this._events[e] = new EventalEvent(e);
         }
     }
     
@@ -114,6 +114,38 @@ class Evental {
         }
         this.caller = caller;
         return this;
+    }
+    
+    bypass(event) {
+        if (this.exists(event)) {
+            this.get(event).bypass();
+        }
+        return this;
+    }
+    
+    removeBypass(event) {
+        if (this.exists(event)) {
+            this.get(event).removeBypass();
+        }
+        return this;
+    }
+    
+    getEvent(event, key) {
+        if (this.exists(event)) {
+            if (key) {
+                return this.get(event).getCallback(key);
+            } else {
+                return this.get(event).getCallbacks();
+            }
+        }
+        return null;
+    }
+    
+    getCalc(event) {
+        if (this.exists(event)) {
+           return this.get(event).getCalc();
+        }
+        return null;
     }
     
     exists(ev) {

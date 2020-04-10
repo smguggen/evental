@@ -50,12 +50,11 @@ const evental = require('evental').instance;
 
 1. **on** *(eventName, callback, [option])*  
    Registers an event if it's not already registered and attaches a callback to be called every time the event is fired.    
-   Returns an automatically generated, unique key that that can be passed to the `off` method to detach the callback from the event.     
-   In the callback, `this` defaults to the Evental instance, but you can change that by passing a different caller into the Evental constructor, or at any time by setting the value of `evental.caller`
+   Returns an automatically generated, unique key that that can be passed to the `off` method to detach the callback from the event.  
    The optional `option` parameter can modify this method's behavior in several ways (see below).  
    
 2. **onCalc** *(eventName, callback)*    
-   Alias of `evental.on(eventName, callback, 'calc')` or `evental.on(eventName, callback, true)` - attaches the callback as the event's calculatable callback and replacing the current one if it exists. Each event can only have one calculatable callback at a time to be called and return a value every time the `calc` method is called for that event. 
+   Alias of `evental.on(eventName, callback, 'calc')` or `evental.on(eventName, callback, true)` - attaches the callback as the event's calculatable callback and replacing the current one if it exists. Each event can only have one calculatable callback at a time to be called and return a value every time the `calc` method is called for that event. The value returned by `calc` can also optionally be passed to the callbacks of the `on`, `first`, `before`, `after`, and `last` methods (see *Callbacks* section below)  
    
 3. **first**(eventName, callback)*    
    Alias of `evental.on(eventName, callback, 'first')` - attaches the associated callback as the first callback to be called when the event is fired. If this is called more than once on the same event, the most recently called will be first, and all preceding `first` event handlers will be converted to `before`.    
@@ -80,15 +79,28 @@ const evental = require('evental').instance;
    
    *Both `fire` and `calc` can be called multiple times.*  
    
-10. **getEvent** *(eventName, [key])*  
+10. **get** *(eventName)*  
+   Returns the individual `EventalEvent` instance for the named event if it exists.
+
+11. **count** *(eventName)*  
+   Returns the current number of times the event has been fired or calculated.
+   
+12. **getEvent** *(eventName, [key])*  
    If `key` is given, returns the specific callback function the key represents, otherwise returns all functions attached to the event
    
-11. **getCalc** *(eventName)*  
+13. **getCalc** *(eventName)*  
    Returns the calculatable function attached to the event or `null` if none exists
    
-12. **setCaller** *(caller)*  
+14. **setCaller** *(caller)*  
    Sets the `this` value of all event callbacks to the object represented by `caller`.  
-   
+
+15. **bypass** *(eventName)*  
+   For events where there is a calculatable callback set, you can call this function to prevent the calculated value being passed to the event stack when the named event is fired. Calling `bypass` will guarantee that the arguments passed to the `fire` method will always be the arguments passed to the callbacks in the event stack. You can disable `bypass` at any time by calling `evental.removeBypass(eventName)`.  
+
+###### Callbacks  
+The second parameter of the `on`, `onCalc`, `first`, `before`, `after`, and `last` methods is always the callback, much as it is in other event handlers. In the callback, `this` defaults to the Evental instance, but you can change that by passing a different caller into the Evental constructor, or at any time by setting the value of `evental.caller`.  
+Pass parameters into the `evental.fire` method that will then be available in every callback for the event, with one exception:
+If the event has an active calculatable callback (called using `evental.onCalc` or by calling `evental.on` with the third parameter set to `calc` or `true`), `evental.calc` will silently be called before cycling through the event stack, then the returned value of `calc` will be passed to the callbacks rather than the arguments passed in the `fire` method. If you want to use `calc` on an event for other reasons and don't want the returned value passed to the event stack, you can bypass this default behavior by calling `eventalevent.bypass(eventName)`.  
    
 ###### Examples:  
 Bind an existing event:
