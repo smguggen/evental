@@ -22,12 +22,16 @@ class Evental {
         return 'ev-' + this._index;
     }
     
-    on(event, callback, option) {
+    on(event, callback, option, one) {
         if (option && typeof option === 'boolean') {
             option = 'calc';
         }
         this.event = event;
-        return this.update(event, 'on', callback, option);
+        return this.update(event, 'on', callback, option, one);
+     }
+     
+     one(event, callback, option) {
+        return this.on(event, callback, option, true);
      }
      
      off(event, key) {

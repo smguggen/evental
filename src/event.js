@@ -41,6 +41,9 @@ class EventalEvent {
         q.forEach(cb => {
             if (cb.active) {
                 cb.function.call(caller, ...args);
+                if (cb.one) {
+                    cb.deactivate();
+                }
             }
         }, this);
         return this;
@@ -59,7 +62,7 @@ class EventalEvent {
         }
     }
 
-    on(callback, option) {
+    on(callback, option, one) {
         let index = this.index;
         if (option == 'first') {
             let oldFirst = this.getCallback('first');
@@ -81,7 +84,7 @@ class EventalEvent {
                 return callback;
             }
         }
-        let cb = new EventalCallback(index, callback, option);
+        let cb = new EventalCallback(index, callback, option, one);
         if (cb.calc) {
             this.hasCalc = true;
             this._calc = cb;

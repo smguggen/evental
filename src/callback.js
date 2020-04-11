@@ -1,8 +1,9 @@
 class EventalCallback {
-    constructor(index, callback, type) {
+    constructor(index, callback, type, discardAfterCall) {
         if (typeof callback !== 'function') {
             callback = this.default;
         }
+        this.one = discardAfterCall ? true : false;
         this.index = index;
         this.active = true;
         this.type = type;
