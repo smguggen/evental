@@ -47,6 +47,7 @@ class Evental {
          } else {
              this._fire(event, ...args);
          }
+         return this;
      }
      
      calc(event, ...args) {
