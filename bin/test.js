@@ -2,7 +2,6 @@
 
 const assert = require('assert');
 const evental = require('../index').instance;
-
 let tester = 1;
 
 let callback1 = evental.on('test', number => {
@@ -107,3 +106,16 @@ evental.fire('three', 1);
 evental.fire('three');
 evental.get('three').bypass();
 evental.fire('three', 1);
+
+let newNumber = 1;
+let tempFn = evental.one('temp', number => {
+    newNumber += number;
+});
+
+evental.fire('temp', 1);
+evental.fire('temp', 1);
+assert.equal(newNumber, 2);
+evental.one('temp', tempFn);
+evental.fire('temp', 1);
+evental.fire('temp', 1);
+assert.equal(newNumber, 3);
