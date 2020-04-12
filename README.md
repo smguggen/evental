@@ -155,13 +155,30 @@ evental.fire('order');
 ```
 Mutate data before passing to the next step:
 ```javascript
-evental.onCalc('myChunk', (data, number) => {
+evental.onCalc('chunkReady', (data, number) => {
    console.log(`Data Chunk ${number}: ${JSON.stringify(data)}`); 
 });
 let chunkNumber = 0;
 stream.on('data', data => {
     chunkNumber++;
-    data = evental.calc('myChunk', data, chunkNumber);
+    data = evental.calc('chunkReady', data, chunkNumber);
     return data;
 }
+```
+Use the `one` method to set a callback to run once, then reactivate the callback later
+```javascript
+let signedIn = evental.one('activity', () => {
+   alert('User is signed in.');
+});
+// Do stuff
+
+evental.fire('activity'); // alert('User is signed in.')
+evental.on('signOut', () => {
+   evental.one('activity', signedIn); 
+});
+
+evental.fire('activity'); // no alert
+evental.fire('signOut');
+// Do stuff
+evental.fire('activity'); // alert('User is signed in.')
 ```
