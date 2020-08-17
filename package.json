@@ -25,7 +25,7 @@
     "on",
     "event listener"
   ],
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "convene": "^0.2.0"
