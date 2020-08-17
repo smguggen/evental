@@ -4,8 +4,11 @@
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
-    "test": "node ./bin/test.js",
-    "build": "node ./bin/build.js"
+    "test": "evental test",
+    "build": "evental build"
+  },
+  "bin": {
+    "evental": "./bin/index.js"
   },
   "author": "Steven Guggenheimer <sguggen@srcer.com> (https://github.com/smguggen)",
   "license": "MIT",
