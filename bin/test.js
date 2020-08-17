@@ -26,7 +26,7 @@ module.exports = function() {
     assert.strictEqual(tester, 2);
     let calced = evental.calc('test', tester);
     assert.strictEqual(evental.count('test'), 3);
-    assert.strictEqual(calced, null);
+    assert.strictEqual(calced, undefined);
     evental.on('test', number => {
         return number + 5;
     }, true);

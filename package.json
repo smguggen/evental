@@ -4,8 +4,8 @@
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
-    "test": "evental test",
-    "build": "evental build"
+    "test": "node ./scripts/test.js",
+    "build": "node ./scripts/build.js"
   },
   "bin": {
     "evental": "./bin/index.js"
