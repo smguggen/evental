@@ -1,6 +1,6 @@
 {
   "name": "evental",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Simple, environment-agnostic event handling",
   "main": "index.js",
   "scripts": {
